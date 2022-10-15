@@ -55,6 +55,7 @@ int width = 1000;
 int height = 1000;
 
 // functions
+void GetINIValues();
 void CreateMeshes();
 void CreateShaders();
 
@@ -83,7 +84,7 @@ int main()
 	CreateShaders();
 
 	// initialize main camera
-	mainCamera = camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 4.0f, 0.5f, 3.7f);
+	mainCamera = camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 4.0f, 0.5f, 4.0f);
 
 	// uniform variables
 	GLuint uniformModel, uniformProjection, uniformView;
@@ -110,9 +111,9 @@ int main()
 
 		// clear the window with black color. we can set this to any rgba value (between 0 and 1)
 		// and get a different color. for instance we could say:
-		// glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		// glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
 		// and we'd have the blue color as our screen color (we'd see a blue color around the pyramid)
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClearColor(0.8f, 0.9f, 0.9f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		// use pyramid shader's program
@@ -153,7 +154,7 @@ int main()
 }
 
 void CreateMeshes(){
-	FastNoiseLite noise;
+	FastNoiseLite noise(4);
 	noise.SetNoiseType(FastNoiseLite::NoiseType_Perlin);
 
     vector<GLfloat> vertices;
@@ -170,7 +171,7 @@ void CreateMeshes(){
             // NOTE: origin is not at center of mesh
             float x = c; // col
             float z = r; // row
-            float y = noise.GetNoise((float)c, (float)r) * 10.0f;
+            float y = noise.GetNoise((float)c, (float)r) * 50.0f;
 			cout << y << endl;
             // glm::vec3 v(x * spacing, y * spacing, z); //
             vertices.push_back(x * spacing);
