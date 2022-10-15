@@ -10,7 +10,7 @@ make
 
 if [[ $* == *-r* ]] || [[ $* == *--run* ]]
 then
-    ./opengl_example
+    ./opengl-procedural-terrain
 fi
 
 if [[ $* == *-p* ]] || [[ $* == *--pack* ]]
