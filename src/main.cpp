@@ -51,8 +51,8 @@ std::vector<Shader> shaderList;
 float pyramid_curAngle = 0.0f;
 
 // settings
-int width = 1000;
-int height = 1000;
+int width = 500;
+int height = 100;
 
 // functions
 void GetINIValues();
@@ -61,22 +61,6 @@ void CreateShaders();
 
 int main()
 {
-	// // Gather noise data
-	// std::vector<float> noiseData(128 * 128);
-
-	// int index = 0;
-
-	// for (int y = 0; y < 128; y++)
-	// {
-	// 	for (int x = 0; x < 128; x++)
-	// 	{
-	// 		noiseData[index++] = noise.GetNoise((float)x, (float)y);
-	// 	}
-	// }
-
-	// for (float i: noiseData)
-	// 	cout << i << endl;
-
 	// initialize the main window
 	mainWindow.initialize();
 
@@ -84,7 +68,7 @@ int main()
 	CreateShaders();
 
 	// initialize main camera
-	mainCamera = camera(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 4.0f, 0.5f, 4.0f);
+	mainCamera = camera(glm::vec3(0.0f, 100.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f), 0.0f, 0.0f, 4.0f, 0.5f, 4.0f);
 
 	// uniform variables
 	GLuint uniformModel, uniformProjection, uniformView;
@@ -131,7 +115,7 @@ int main()
 		glm::mat4 model = glm::mat4(1.0f);
 
 		// apply translate, scale and rotation to identity matrix
-		model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
+		model = glm::translate(model, glm::vec3(20.0f, 0.0f, (-height / 2) / 2));
 		model = glm::scale(model, glm::vec3(0.6f, 0.6f, 0.6f));
 		model = glm::rotate(model, glm::radians(pyramid_curAngle), glm::vec3(0.0f, 1.0f, 0.0f));
 
@@ -165,14 +149,11 @@ void CreateMeshes(){
     float spacing = 1.0;
 	
     // Rows
-    for (int r = 0; r < height; r++) {
+    for (int z = 0; z < height; z++) {
         // Cols
-        for (int c = 0; c < width; c++) {
+        for (int x = 0; x < width; x++) {
             // NOTE: origin is not at center of mesh
-            float x = c; // col
-            float z = r; // row
-            float y = noise.GetNoise((float)c, (float)r) * 50.0f;
-			cout << y << endl;
+            float y = noise.GetNoise((float)x, (float)z) * 50.0f;
             // glm::vec3 v(x * spacing, y * spacing, z); //
             vertices.push_back(x * spacing);
 			vertices.push_back(y * spacing);
@@ -183,9 +164,9 @@ void CreateMeshes(){
 	// Generate faces
 
     // Rows (-1 for last)
-    for (int r = 0; r < height - 1; r++) {
+    for (int z = 0; z < height - 1; z++) {
         // Cols (-1 for last)
-        for (int c = 0; c < width - 1; c++) {
+        for (int x = 0; x < width - 1; x++) {
             // Upper triangle
             /*
 
@@ -194,9 +175,9 @@ void CreateMeshes(){
                 |  /
                 v1
             */
-            int f0_0 = (r * width) + c;
-            int f0_1 = ((r + 1) * width) + c;
-            int f0_2 = (r * width) + c + 1;
+            int f0_0 = (z * width) + x;
+            int f0_1 = ((z + 1) * width) + x;
+            int f0_2 = (z * width) + x + 1;
 
             indices.push_back(f0_0);
 			indices.push_back(f0_1);
@@ -210,9 +191,9 @@ void CreateMeshes(){
                    /   |
                 v0 --- v1
             */
-            int f1_0 = ((r + 1) * width) + c;
-            int f1_1 = ((r + 1) * width) + c + 1;
-            int f1_2 = (r * width) + c + 1;
+            int f1_0 = ((z + 1) * width) + x;
+            int f1_1 = ((z + 1) * width) + x + 1;
+            int f1_2 = (z * width) + x + 1;
 
             indices.push_back(f1_0);
 			indices.push_back(f1_1);
