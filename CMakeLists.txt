@@ -11,7 +11,8 @@ src/shaders.cpp
 src/mesh.cpp
 src/camera.cpp 
 src/mesh_utils.cpp 
-src/anim_utils.cpp)
+src/anim_utils.cpp 
+src/utils.cpp)
 
 # add executable target with source files listed in SOURCE_FILES variable
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})

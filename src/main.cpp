@@ -25,6 +25,7 @@
 // user defined util libraries
 #include "mesh_utils.h"
 #include "anim_utils.h"
+#include "utils.h"
 
 #include "FastNoiseLite.h"
 
@@ -214,10 +215,12 @@ void CreateMeshes(){
 
 void CreateShaders()
 {
+	string terrain_vShader = Utilities::ReadFile("shaders/terrain.vert");
+	string terrain_fShader = Utilities::ReadFile("shaders/terrain.frag");
 	// create a new object of shader class (pyramid's shader) and make a pointer to it
-	Shader* pyramid_shader = new Shader();
-	pyramid_shader->CreateProgram(shaders::pyramid_vShader, shaders::pyramid_fShader);
+	Shader* terrain_shader = new Shader();
+	terrain_shader->CreateProgram(terrain_vShader, terrain_fShader);
 
 	// add it to the shader list
-	shaderList.push_back(*pyramid_shader);
+	shaderList.push_back(*terrain_shader);
 }
