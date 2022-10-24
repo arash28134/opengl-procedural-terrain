@@ -2,3 +2,4 @@ build/*
 .vscode/*
 vs2022/.vs/*
 vs2022/Release/*
+vs2022/Debug/*

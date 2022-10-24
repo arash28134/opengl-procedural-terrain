@@ -57,13 +57,7 @@ void camera::mouseControl(GLfloat xChange, GLfloat yChange){
     yaw += xChange;
     pitch += yChange;
 
-    if (pitch > 89.0f){
-        pitch = 89.0f;
-    }
-
-    if (pitch < -89.0f){
-        pitch = -89.0f;
-    }
+    pitch = glm::clamp(pitch, -89.0f, 89.0f);
 
     update();
 }
