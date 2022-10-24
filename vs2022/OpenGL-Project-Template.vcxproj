@@ -46,6 +46,7 @@
     <ProjectGuid>{8ecfb986-ca24-40e6-9e42-5834a81b4539}</ProjectGuid>
     <RootNamespace>OpenGLProjectTemplate</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>OpenGL-Procedural-Terrain</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
