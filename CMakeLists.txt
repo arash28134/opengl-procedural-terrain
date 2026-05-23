@@ -1,6 +1,11 @@
-cmake_minimum_required(VERSION 3.13)  # CMake version check
-project(opengl-procedural-terrain)               # create project "first_person_pyramid"
+cmake_minimum_required(VERSION 3.15)  # CMake version check
+project(opengl-procedural-terrain)               # project name
 set(CMAKE_CXX_STANDARD 14)            # enable c++14 standard
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# find packages
+find_package(glfw3 CONFIG REQUIRED)
+find_package(GLEW CONFIG REQUIRED)
 
 # add source files
 set(SOURCE_FILES 
@@ -17,13 +22,14 @@ src/utils.cpp)
 # add executable target with source files listed in SOURCE_FILES variable
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
-# find packages
-find_package(glfw3 3.3 REQUIRED)
-find_package(GLEW REQUIRED)
-find_package(OpenGL REQUIRED)
-
 # link libraries
-target_link_libraries(${PROJECT_NAME} glfw GLEW::glew ${OPENGL_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PRIVATE glfw GLEW::GLEW)
 
 # include directories
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
+
+# On Linux, OpenGL apps typically require linking to the system OpenGL & X11 threads
+if(NOT WIN32)
+    find_package(Threads REQUIRED)
+    target_link_libraries(MyApp PRIVATE ${CMAKE_DL_LIBS} Threads::Threads)
+endif()
