@@ -1,8 +1,8 @@
 // system libraries
 #include <iostream>
 #include <string>
-#include <string.h>
 #include <vector>
+#include <memory>
 
 // glew library
 #include <GL/glew.h>
@@ -15,13 +15,11 @@
 #include <glm/gtc/matrix_transform.hpp> // translate, rotate, scale, identity
 #include <glm/gtc/type_ptr.hpp>
 
-// user defined base libraries
+// user defined libraries
 #include "window.h"
 #include "mesh.h"
 #include "shader.h"
 #include "camera.h"
-
-// user defined util libraries
 #include "mesh_utils.h"
 #include "anim_utils.h"
 #include "utils.h"
@@ -96,7 +94,7 @@ int main()
 		// clear the window with black color. we can set this to any rgba value (between 0 and 1)
 		// and get a different color. for instance we could say:
 		// glClearColor(0.0f, 0.0f, 1.0f, 1.0f);
-		// and we'd have the blue color as our screen color (we'd see a blue color around the pyramid)
+		// and we'd have the blue color as our skybox color
 		glClearColor(0.8f, 0.9f, 0.9f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -107,9 +105,6 @@ int main()
 		uniformModel = shaderList[0].GetModelLocation();
 		uniformProjection = shaderList[0].GetProjectionLocation();
 		uniformView = shaderList[0].GetViewLocation();
-
-		// draw rotating animation for pyramid
-		// anim_utils::DrawRotatingAnim(&pyramid_curAngle, 0.5f);
 
 		// identity matrix
 		glm::mat4 model = glm::mat4(1.0f);
