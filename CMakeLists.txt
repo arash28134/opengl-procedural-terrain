@@ -6,14 +6,14 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # find packages
 find_package(glfw3 CONFIG REQUIRED)
 find_package(GLEW CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
 
 # add source files
 set(SOURCE_FILES 
 src/main.cpp 
 src/window.cpp 
-src/shader.cpp
-src/shaders.cpp 
-src/mesh.cpp
+src/shader.cpp 
+src/mesh.cpp 
 src/camera.cpp 
 src/mesh_utils.cpp 
 src/anim_utils.cpp 
@@ -23,12 +23,16 @@ src/utils.cpp)
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 # link libraries
-target_link_libraries(${PROJECT_NAME} PRIVATE glfw GLEW::GLEW)
+target_link_libraries(${PROJECT_NAME} PRIVATE glfw GLEW::GLEW glm::glm)
 
 # include directories
 target_include_directories(${PROJECT_NAME} PRIVATE ${PROJECT_SOURCE_DIR}/include)
 
-# On Linux, OpenGL apps typically require linking to the system OpenGL & X11 threads
+# OS-Specific handling
+if(WIN32)
+    target_compile_definitions(${PROJECT_NAME} PRIVATE WIN32_LEAN_AND_MEAN)
+endif()
+
 if(NOT WIN32)
     find_package(Threads REQUIRED)
     target_link_libraries(MyApp PRIVATE ${CMAKE_DL_LIBS} Threads::Threads)

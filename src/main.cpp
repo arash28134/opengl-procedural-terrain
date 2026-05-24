@@ -19,7 +19,6 @@
 #include "window.h"
 #include "mesh.h"
 #include "shader.h"
-#include "shaders.h"
 #include "camera.h"
 
 // user defined util libraries
