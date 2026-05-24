@@ -4,7 +4,7 @@ Project I did back in 9th grade for our computer class (Still under development.
 You can either build the project or download a pre-built binary (Windows & Linux) from [Releases](https://github.com/arash28134/opengl-procedural-terrain/releases) section.
 
 ### Prerequisites
-- **CMake**: Make sure you have CMake installed on your system. You can download it from [cmake.org](https://cmake.org/download/) on Windows or use your package manager on Linux.
+- **CMake**: Make sure you have CMake installed on your system. You can download it from [cmake.org](https://cmake.org/download/) for Windows or use your package manager (APT, RPM, Pacman) on Linux.
 - **vcpkg**: Follow the instructions in Microsoft's [vcpkg documentation](https://learn.microsoft.com/en-us/vcpkg/get_started/get-started?pivots=shell-powershell) to install vcpkg.
 
 ### Building the Project
@@ -21,7 +21,7 @@ You can either build the project or download a pre-built binary (Windows & Linux
    ```sh
    cmake -B build -S . -DCMAKE_TOOLCHAIN_FILE=/path/to/vcpkg/scripts/buildsystems/vcpkg.cmake
    ```
-   (You can also set the VCPKG_ROOT environment variable to your vcpkg directory and run CMake without the toolchain file argument. the first method is more recommended)
+   (You can also set the VCPKG_ROOT environment variable to your vcpkg directory and run CMake without the toolchain file argument. The first method is more recommended however)
 
 3. **Build**
    ```sh
