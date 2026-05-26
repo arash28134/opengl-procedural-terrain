@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)  # CMake version check
-project(opengl-procedural-terrain)               # project name
-set(CMAKE_CXX_STANDARD 14)            # enable c++14 standard
+project(opengl_terrain)               # project name
+set(CMAKE_CXX_STANDARD 17)            # enable c++17 standard
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # find packages
@@ -37,3 +37,10 @@ if(NOT WIN32)
     find_package(Threads REQUIRED)
     target_link_libraries(MyApp PRIVATE ${CMAKE_DL_LIBS} Threads::Threads)
 endif()
+
+# Copy /shaders folder
+add_custom_command(TARGET opengl_terrain POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${CMAKE_SOURCE_DIR}/shaders
+    $<TARGET_FILE_DIR:opengl_terrain>/shaders
+)
