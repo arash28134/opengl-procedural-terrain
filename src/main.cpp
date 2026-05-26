@@ -2,7 +2,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <memory>
+#include <ctime>
 
 // glew library
 #include <GL/glew.h>
@@ -49,8 +49,8 @@ std::vector<Shader> shaderList;
 float pyramid_curAngle = 0.0f;
 
 // settings
-int width = 500;
-int height = 100;
+int width = 1000;
+int height = 1000;
 
 // functions
 void GetINIValues();
@@ -133,7 +133,7 @@ int main()
 }
 
 void CreateMeshes(){
-	FastNoiseLite noise(4);
+	FastNoiseLite noise(static_cast<int>(time(nullptr)));
 	noise.SetNoiseType(FastNoiseLite::NoiseType_Perlin);
 
     vector<GLfloat> vertices;
@@ -141,7 +141,7 @@ void CreateMeshes(){
 
 	// Create vertices
     vertices.reserve(width * height);
-    float spacing = 1.0;
+    float spacing = 2.0;
 	
     // Rows
     for (int z = 0; z < height; z++) {
@@ -152,7 +152,7 @@ void CreateMeshes(){
             // glm::vec3 v(x * spacing, y * spacing, z); //
             vertices.push_back(x * spacing);
 			vertices.push_back(y * spacing);
-			vertices.push_back(z);
+			vertices.push_back(z * spacing);
         }
     }
 
